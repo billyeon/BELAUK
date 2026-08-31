@@ -26,7 +26,10 @@ const galleryIcon = (
  *    뜨는데, 이는 정상 동작이므로 그대로 둔다.
  *    !! 모바일 실기기(iOS Safari / Android Chrome)에서 후면 카메라가 즉시 실행되는지
  *       반드시 확인할 것 (에뮬레이터/데스크톱으로는 검증 불가) !!
- *  - "갤러리에서 가져오기": capture 없이 accept 만 → 기존 사진/동영상 중 다중 선택.
+ *  - "갤러리에서 가져오기": capture 없이 accept="image/*" 만 → 안드로이드/ iOS 에서
+ *    파일 탐색기가 아니라 사진첩(갤러리) 선택기가 바로 뜬다. accept 에 video/* 를
+ *    함께 넣으면 안드로이드가 일반 파일 관리자로 열어버리므로 이미지 전용으로 둔다.
+ *    (동영상은 "사진·영상 찍기" 버튼으로 촬영)
  *
  * 촬영/선택이 끝나면 별도 업로드 버튼 없이 곧바로
  * 압축 → Supabase Storage 업로드 → AI 인식(/api/scan) → 인식결과 화면으로 이동한다.
@@ -73,7 +76,7 @@ export function ScanEntry() {
       <input
         ref={galleryRef}
         type="file"
-        accept="image/*,video/*"
+        accept="image/*"
         multiple
         hidden
         onChange={onPick}

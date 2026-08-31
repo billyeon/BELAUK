@@ -1,12 +1,12 @@
 "use client";
 
 import { Suspense, useRef, useState } from "react";
-import imageCompression from "browser-image-compression";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { TopBar } from "@/components/layout/TopBar";
 import { Button } from "@/components/ui/Button";
+import { compressForUpload } from "@/lib/scan-client";
 
 type Pick = { file: File; url: string };
 
@@ -24,26 +24,8 @@ function ScanInner() {
   async function onSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const chosen = Array.from(e.target.files ?? []);
     e.target.value = "";
-    const next: Pick[] = [];
-    for (const file of chosen) {
-      if (file.type.startsWith("image/")) {
-        try {
-          const compressed = await imageCompression(file, {
-            maxSizeMB: 0.9,
-            maxWidthOrHeight: 1600,
-            useWebWorker: true,
-          });
-          const named = new File([compressed], file.name.replace(/\.\w+$/, ".jpg"), {
-            type: compressed.type || "image/jpeg",
-          });
-          next.push({ file: named, url: URL.createObjectURL(named) });
-        } catch {
-          next.push({ file, url: URL.createObjectURL(file) });
-        }
-      } else {
-        next.push({ file, url: URL.createObjectURL(file) });
-      }
-    }
+    const prepared = await compressForUpload(chosen);
+    const next: Pick[] = prepared.map((file) => ({ file, url: URL.createObjectURL(file) }));
     setPicks((p) => [...p, ...next].slice(0, 8));
   }
 
@@ -99,7 +81,9 @@ function ScanInner() {
         <input
           ref={inputRef}
           type="file"
-          accept="image/*,video/mp4,video/quicktime"
+          // gallery → images only, so Android opens the photo picker (not the file manager);
+          // camera → allow video capture too.
+          accept={fromGallery ? "image/*" : "image/*,video/*"}
           {...(fromGallery ? {} : { capture: "environment" as const })}
           multiple
           hidden
