@@ -1,6 +1,15 @@
 {
-  "app": { "name": "BELAUK", "tagline": "拿出来看看，价值一目了然。" },
-  "nav": { "home": "首页", "browse": "浏览", "sell": "出售", "chat": "聊天", "profile": "我的" },
+  "app": {
+    "name": "BELAUK",
+    "tagline": "拿出来看看，价值一目了然。"
+  },
+  "nav": {
+    "home": "首页",
+    "browse": "浏览",
+    "sell": "出售",
+    "chat": "聊天",
+    "profile": "我的"
+  },
   "common": {
     "loading": "加载中",
     "retry": "重试",
@@ -81,7 +90,9 @@
     "resultTitle": "估值结果",
     "resultSubtitle": "{brand} {model} · 基于缅甸近 6 个月成交",
     "sellCta": "把这件物品挂出售",
-    "noRecognition": "请先识别照片。"
+    "noRecognition": "请先识别照片。",
+    "errorGeneric": "无法处理该照片，请重试或选择其他照片。",
+    "errorNetwork": "请检查网络连接后重试。"
   },
   "condition": {
     "new": "未拆封",
@@ -127,7 +138,11 @@
     "helpLow": "低于同类物品，或许可以再高一些。",
     "helpWithin": "与同类物品价格相当。",
     "helpInsufficient": "暂时缺少可比的真实成交数据，仍可发布。",
-    "sufficiency": { "sufficient": "充足", "low": "一般", "none": "不足" }
+    "sufficiency": {
+      "sufficient": "充足",
+      "low": "一般",
+      "none": "不足"
+    }
   },
   "checked": {
     "title": "BELAUK Checked",
@@ -158,7 +173,11 @@
     "similar": "相似商品",
     "postedAgo": "{time} 发布",
     "aiGenerated": "由 AI 撰写的商品信息",
-    "sellerTrust": { "new": "新卖家", "active": "活跃卖家", "trusted": "可信卖家" },
+    "sellerTrust": {
+      "new": "新卖家",
+      "active": "活跃卖家",
+      "trusted": "可信卖家"
+    },
     "eventType": {
       "initial_listing": "初始价格",
       "price_change": "价格变动",

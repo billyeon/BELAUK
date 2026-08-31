@@ -39,18 +39,25 @@ export function ScanEntry() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleFiles(list: FileList | null) {
-    const files = Array.from(list ?? []);
+  function onPick(e: React.ChangeEvent<HTMLInputElement>) {
+    // Copy the FileList to an array *synchronously* — clearing `value` below can
+    // empty a live FileList before the async handler reads it (Android quirk).
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    void handleFiles(files);
+  }
+
+  async function handleFiles(files: File[]) {
     if (files.length === 0) return; // 사용자가 촬영/선택을 취소한 경우
     setBusy(true);
     setError(null);
-    const { checkId } = await submitScan(files);
+    const { checkId, error: err } = await submitScan(files);
     if (checkId) {
       router.push(`/scan/${checkId}/review`);
       return; // 오버레이는 화면 전환까지 유지
     }
     setBusy(false);
-    setError(t("common.retry"));
+    setError(err === "network" ? t("scan.errorNetwork") : t("scan.errorGeneric"));
   }
 
   return (
@@ -61,11 +68,7 @@ export function ScanEntry() {
         accept="image/*,video/*"
         capture="environment"
         hidden
-        onChange={(e) => {
-          const f = e.target.files;
-          e.target.value = "";
-          void handleFiles(f);
-        }}
+        onChange={onPick}
       />
       <input
         ref={galleryRef}
@@ -73,11 +76,7 @@ export function ScanEntry() {
         accept="image/*,video/*"
         multiple
         hidden
-        onChange={(e) => {
-          const f = e.target.files;
-          e.target.value = "";
-          void handleFiles(f);
-        }}
+        onChange={onPick}
       />
 
       <button

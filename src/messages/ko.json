@@ -1,6 +1,15 @@
 {
-  "app": { "name": "BELAUK", "tagline": "이거 얼마? 보여주면, 가치가 보입니다." },
-  "nav": { "home": "홈", "browse": "둘러보기", "sell": "판매하기", "chat": "채팅", "profile": "내 정보" },
+  "app": {
+    "name": "BELAUK",
+    "tagline": "이거 얼마? 보여주면, 가치가 보입니다."
+  },
+  "nav": {
+    "home": "홈",
+    "browse": "둘러보기",
+    "sell": "판매하기",
+    "chat": "채팅",
+    "profile": "내 정보"
+  },
   "common": {
     "loading": "불러오는 중",
     "retry": "다시 시도",
@@ -81,7 +90,9 @@
     "resultTitle": "가치 확인 결과",
     "resultSubtitle": "{brand} {model} · 최근 6개월 미얀마 거래 기준",
     "sellCta": "이 물건 판매 등록하기",
-    "noRecognition": "먼저 사진을 인식해 주세요."
+    "noRecognition": "먼저 사진을 인식해 주세요.",
+    "errorGeneric": "사진을 처리하지 못했어요. 다시 시도하거나 다른 사진을 선택해 주세요.",
+    "errorNetwork": "인터넷 연결을 확인하고 다시 시도해 주세요."
   },
   "condition": {
     "new": "미개봉",
@@ -127,7 +138,11 @@
     "helpLow": "비슷한 물건보다 낮아요. 더 받을 수 있을지도 몰라요.",
     "helpWithin": "비슷한 물건들과 비슷한 가격이에요.",
     "helpInsufficient": "아직 비교할 실거래 데이터가 부족해요. 그대로 등록할 수 있습니다.",
-    "sufficiency": { "sufficient": "충분", "low": "보통", "none": "부족" }
+    "sufficiency": {
+      "sufficient": "충분",
+      "low": "보통",
+      "none": "부족"
+    }
   },
   "checked": {
     "title": "BELAUK Checked",
@@ -158,7 +173,11 @@
     "similar": "비슷한 상품",
     "postedAgo": "{time} 등록",
     "aiGenerated": "AI가 작성한 상품 정보",
-    "sellerTrust": { "new": "새 판매자", "active": "활동 판매자", "trusted": "신뢰 판매자" },
+    "sellerTrust": {
+      "new": "새 판매자",
+      "active": "활동 판매자",
+      "trusted": "신뢰 판매자"
+    },
     "eventType": {
       "initial_listing": "최초 등록가",
       "price_change": "가격 변경",
