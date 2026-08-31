@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ink: #16181b;
+  --color-muted: #686d75;
+  --color-line: #e4e6e8;
+  --color-paper: #f6f4ef;
+  --color-surface: #ffffff;
+  --color-accent: #169b8c;
+  --color-accent-dark: #0d6f65;
+  --color-accent-soft: #e7f4f2;
+  --color-warn: #c2410c;
+  --color-warn-soft: #fdeee3;
+
+  --radius-belauk: 18px;
+
+  --font-sans: var(--font-noto), var(--font-noto-mm), "Noto Sans KR", "Noto Sans SC",
+    ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App shell: mobile-first, capped width, room for the bottom tab bar. */
+.app-shell {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100%;
+  background: var(--color-paper);
+  /* room for the fixed bottom nav + the phone's home indicator (standalone PWA) */
+  padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 481px) {
+  .app-shell {
+    border-inline: 1px solid var(--color-line);
+  }
 }
