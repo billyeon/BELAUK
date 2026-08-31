@@ -1,5 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 
+/**
+ * Categories kept in the DB (and still recognised by the AI) but hidden from the
+ * navigation — BELAUK focuses on everyday goods, not vehicles.
+ */
+export const HIDDEN_CATEGORY_SLUGS = new Set(["vehicles"]);
+
 export type ProductSort = "new" | "price_asc" | "price_desc";
 
 export type BrowseFilters = {
@@ -86,5 +92,5 @@ export async function listCategories() {
     .from("categories")
     .select("*")
     .order("sort");
-  return data ?? [];
+  return (data ?? []).filter((c) => !HIDDEN_CATEGORY_SLUGS.has(c.slug));
 }
