@@ -81,9 +81,9 @@ function ScanInner() {
         <input
           ref={inputRef}
           type="file"
-          // gallery → images only, so Android opens the photo picker (not the file manager);
-          // camera → allow video capture too.
-          accept={fromGallery ? "image/*" : "image/*,video/*"}
+          accept="image/*,video/*"
+          // gallery entry → no capture at all (open the photo library);
+          // camera entry → capture opens the camera directly.
           {...(fromGallery ? {} : { capture: "environment" as const })}
           multiple
           hidden
