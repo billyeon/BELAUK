@@ -64,16 +64,16 @@ export function ScanEntry() {
 
   return (
     <>
-      {/* "사진·영상 찍기" — capture 로 카메라 즉시 실행 */}
+      {/* "사진·영상 찍기" — accept=image/* + capture 로 카메라가 무조건 즉시 실행 */}
       <input
         ref={cameraRef}
         type="file"
-        accept="image/*,video/*"
+        accept="image/*"
         capture="environment"
         hidden
         onChange={onPick}
       />
-      {/* "갤러리에서 가져오기" — capture 없음. 순수 accept 만 → 갤러리/사진첩 열림 */}
+      {/* "갤러리에서 가져오기" — capture 절대 없음. accept 만 → 카메라 옵션 없이 사진첩으로 */}
       <input
         ref={galleryRef}
         type="file"

@@ -81,9 +81,9 @@ function ScanInner() {
         <input
           ref={inputRef}
           type="file"
-          accept="image/*,video/*"
-          // gallery entry → no capture at all (open the photo library);
-          // camera entry → capture opens the camera directly.
+          // gallery entry → accept image+video, no capture (opens the photo library);
+          // camera entry → accept image only + capture (opens the camera directly).
+          accept={fromGallery ? "image/*,video/*" : "image/*"}
           {...(fromGallery ? {} : { capture: "environment" as const })}
           multiple
           hidden
