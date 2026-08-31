@@ -11,6 +11,7 @@ import {
   effectiveValues,
 } from "@/lib/scan";
 import { reviewPrice } from "@/lib/pricing/range";
+import { basisFromComputedFrom, describeBasis } from "@/lib/pricing/basis-view";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export default async function ResultPage({
@@ -40,8 +41,32 @@ export default async function ResultPage({
     .maybeSingle();
 
   if (!comparison) {
+    let categorySlug: string | null = null;
+    if (eff.categoryId) {
+      const { data: cat } = await admin
+        .from("categories")
+        .select("slug")
+        .eq("id", eff.categoryId)
+        .maybeSingle();
+      categorySlug = cat?.slug ?? null;
+    }
+    const raw = rec.recognition.raw_response as { summary?: string } | null;
     await reviewPrice(
-      { categoryId: eff.categoryId ?? null, brand: eff.brand, model: eff.model, desiredPrice: null },
+      {
+        categoryId: eff.categoryId ?? null,
+        categorySlug,
+        brand: eff.brand,
+        model: eff.model,
+        condition: (["new", "like_new", "good", "fair", "poor"] as const).includes(
+          eff.condition as never,
+        )
+          ? (eff.condition as "new" | "like_new" | "good" | "fair" | "poor")
+          : null,
+        attributes: eff.attributes,
+        damageText: raw?.summary ?? null,
+        desiredPrice: null,
+        web: false,
+      },
       { valueCheckId: checkId },
     );
     ({ data: comparison } = await admin
@@ -55,6 +80,11 @@ export default async function ResultPage({
 
   const hasRange = comparison?.price_p25 != null && comparison?.price_p75 != null;
   const title = [eff.brand, eff.model].filter(Boolean).join(" ");
+  const basis = describeBasis(
+    basisFromComputedFrom(comparison?.computed_from),
+    t as unknown as (k: string, v?: Record<string, string | number>) => string,
+    locale,
+  );
 
   return (
     <>
@@ -95,6 +125,25 @@ export default async function ResultPage({
           {!hasRange && (
             <p className="mt-3 rounded-lg bg-line/50 px-3 py-2 text-xs text-muted">
               {t("common.dataLow")}
+            </p>
+          )}
+
+          {basis && (
+            <p className="mt-3 border-t border-line pt-3 text-[11px] leading-relaxed text-muted">
+              {basis.text}
+              {basis.sourceUrl && (
+                <>
+                  {" · "}
+                  <a
+                    href={basis.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    {t("price.source")}
+                  </a>
+                </>
+              )}
             </p>
           )}
         </div>

@@ -6,6 +6,7 @@ import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import { VerdictBadge } from "@/components/ui/VerdictBadge";
 import { formatMMK, parseMMK } from "@/lib/format/money";
+import { basisFromRange, describeBasis } from "@/lib/pricing/basis-view";
 import type { AppLocale } from "@/i18n/routing";
 import type { PriceRange } from "@/lib/pricing/range";
 
@@ -58,6 +59,13 @@ export function PriceRangeReview({
   }
 
   const hasRange = range && range.priceP25 != null && range.priceP75 != null;
+  const basis = range
+    ? describeBasis(
+        basisFromRange(range.basis),
+        t as unknown as (k: string, v?: Record<string, string | number>) => string,
+        locale,
+      )
+    : null;
 
   return (
     <div className="space-y-5">
@@ -109,6 +117,25 @@ export function PriceRangeReview({
             </p>
           )}
           <p className="mt-3 text-xs text-muted">{t(`price.${helpKey[range.verdict]}`)}</p>
+
+          {basis && (
+            <p className="mt-2 border-t border-line pt-2 text-[11px] leading-relaxed text-muted">
+              {basis.text}
+              {basis.sourceUrl && (
+                <>
+                  {" · "}
+                  <a
+                    href={basis.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    {t("price.source")}
+                  </a>
+                </>
+              )}
+            </p>
+          )}
         </div>
       )}
 

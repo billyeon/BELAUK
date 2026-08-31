@@ -142,7 +142,16 @@
       "sufficient": "충분",
       "low": "보통",
       "none": "부족"
-    }
+    },
+    "basisMsrpPrefix": "신제품가 {msrp}짜트 기준",
+    "basisCondition": "상태 {condition}",
+    "basisDepr": "약 {pct}% 감가 적용",
+    "basisInternal": "자체 실거래 {samples}건 반영",
+    "basisNoMsrp": "정가 정보 없음 · 자체 데이터만 기준",
+    "ageYears": "사용 {years}년",
+    "ageMonths": "사용 {months}개월",
+    "ageUnknown": "사용기간 미상",
+    "source": "출처"
   },
   "checked": {
     "title": "BELAUK Checked",

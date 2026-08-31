@@ -9,7 +9,7 @@ import {
 import { reviewPrice } from "@/lib/pricing/range";
 import { CONDITIONS } from "@/lib/ai/schema";
 
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as {
@@ -71,8 +71,34 @@ export async function POST(request: Request) {
   const brand = body.brand === undefined ? current.brand : body.brand || null;
   const model = body.model === undefined ? current.model : body.model || null;
 
+  const conditionRaw = body.condition ?? current.condition;
+  const condition = CONDITIONS.includes(conditionRaw as (typeof CONDITIONS)[number])
+    ? (conditionRaw as (typeof CONDITIONS)[number])
+    : null;
+
+  let categorySlug = body.categorySlug ?? null;
+  if (!categorySlug && categoryId) {
+    const { data: cat } = await admin
+      .from("categories")
+      .select("slug")
+      .eq("id", categoryId)
+      .maybeSingle();
+    categorySlug = cat?.slug ?? null;
+  }
+  const raw = rec.recognition.raw_response as { summary?: string } | null;
+
   const range = await reviewPrice(
-    { categoryId: categoryId ?? null, brand, model, desiredPrice: null },
+    {
+      categoryId: categoryId ?? null,
+      categorySlug,
+      brand,
+      model,
+      condition,
+      attributes: current.attributes,
+      damageText: raw?.summary ?? null,
+      desiredPrice: null,
+      web: true,
+    },
     { valueCheckId: body.checkId },
   );
 

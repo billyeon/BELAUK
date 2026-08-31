@@ -142,7 +142,16 @@
       "sufficient": "充足",
       "low": "一般",
       "none": "不足"
-    }
+    },
+    "basisMsrpPrefix": "以全新价 {msrp} 缅元为基准",
+    "basisCondition": "成色 {condition}",
+    "basisDepr": "约折旧 {pct}%",
+    "basisInternal": "已纳入 {samples} 笔平台成交",
+    "basisNoMsrp": "未找到全新价 · 仅用平台数据",
+    "ageYears": "已用 {years} 年",
+    "ageMonths": "已用 {months} 个月",
+    "ageUnknown": "使用时长不明",
+    "source": "来源"
   },
   "checked": {
     "title": "BELAUK Checked",

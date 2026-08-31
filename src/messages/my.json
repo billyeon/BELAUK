@@ -142,7 +142,16 @@
       "sufficient": "ခိုင်မာ",
       "low": "အသင့်အတင့်",
       "none": "နည်း"
-    }
+    },
+    "basisMsrpPrefix": "အသစ်ဈေး {msrp} ကျပ် အခြေခံ",
+    "basisCondition": "အခြေအနေ {condition}",
+    "basisDepr": "~{pct}% တန်ဖိုးလျော့",
+    "basisInternal": "BELAUK ရောင်းဝယ်မှု {samples} ခု ထည့်တွက်",
+    "basisNoMsrp": "အသစ်ဈေး မတွေ့ · BELAUK ဒေတာသာ",
+    "ageYears": "သုံးစွဲ {years} နှစ်",
+    "ageMonths": "သုံးစွဲ {months} လ",
+    "ageUnknown": "သုံးစွဲကာလ မသိ",
+    "source": "ရင်းမြစ်"
   },
   "checked": {
     "title": "BELAUK Checked",

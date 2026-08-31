@@ -142,7 +142,16 @@
       "sufficient": "Strong",
       "low": "Fair",
       "none": "Low"
-    }
+    },
+    "basisMsrpPrefix": "Based on new price {msrp} MMK",
+    "basisCondition": "condition {condition}",
+    "basisDepr": "~{pct}% depreciation applied",
+    "basisInternal": "{samples} BELAUK sale(s) factored in",
+    "basisNoMsrp": "No new-price found · BELAUK data only",
+    "ageYears": "{years} yr in use",
+    "ageMonths": "{months} mo in use",
+    "ageUnknown": "age unknown",
+    "source": "source"
   },
   "checked": {
     "title": "BELAUK Checked",
